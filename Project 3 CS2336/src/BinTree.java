@@ -20,9 +20,9 @@ public class BinTree<T extends Comparable<T>>
 		
 	}
 	
-	public Node<T> search(Node<T> keywordHolderNode)
+	public Node<T> search(Node<T> keywordHolderNode, Node<T> rootToBeginAt)
 	{
-		Node<T> currentNode = root;
+		Node<T> currentNode = rootToBeginAt;
 		Node<T> result = null;
 		
 		if(currentNode == null)
@@ -37,13 +37,11 @@ public class BinTree<T extends Comparable<T>>
 		}
 		else if (keywordHolderNode.compareTo(currentNode) < 0) //if node is to the left of currentNode, create new tree from subtree and search it
 		{
-			BinTree<T> leftTree = new BinTree<T>(currentNode.getLeft());
-			leftTree.search(keywordHolderNode);
+			search(keywordHolderNode, currentNode.getLeft());
 		}
 		else if (keywordHolderNode.compareTo(currentNode) > 0) //if node is to the right of currentNode, create new tree from subtree and search it
 		{
-			BinTree<T> rightTree = new BinTree<T>(currentNode.getRight());
-			rightTree.search(keywordHolderNode);
+			search(keywordHolderNode, currentNode.getRight());
 		}
 		
 		
