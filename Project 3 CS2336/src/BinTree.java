@@ -1,8 +1,8 @@
-import java.io.File;
+//Mohammed Ahmed, msa190000
+
 import java.io.FileWriter;
 import java.io.IOException;
 
-//Mohammed Ahmed, msa190000
 
 public class BinTree<T extends Comparable<T>>
 {

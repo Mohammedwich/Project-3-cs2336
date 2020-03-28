@@ -1,7 +1,5 @@
 //Mohammed Ahmed, msa190000
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 public class Payload implements Comparable<Payload> 
 {
@@ -78,6 +76,19 @@ public class Payload implements Comparable<Payload>
 	@Override
 	public String toString()
 	{
+		double revenue = 0.25 * plays;
 		
+		StringBuilder result = new StringBuilder();
+		
+		result.append("Name: " + name + "\n");
+		result.append("High Score: " + highScore + "\n");
+		result.append("Initials: " + initials + "\n");
+		result.append("Plays: " + plays + "\n");
+		//formatting the revenue string before appending it
+		String revenueString = String.format("Revenue: $%.2f\n", revenue);
+		result.append(revenueString);
+		
+		return result.toString();
 	}
 }
+
