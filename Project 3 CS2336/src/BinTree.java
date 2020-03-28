@@ -67,6 +67,21 @@ public class BinTree<T extends Comparable<T>>
 		return result;
 	}
 	
+	//feed this function the right child of the node that is being deleted
+	private Node<T> getSuccessor(Node<T> nodeToSearchUnder) 
+	{
+		// keep recursing until we have the left-most node of the right branch of the node we are deleting and return that
+        if(nodeToSearchUnder.getLeft() != null) 
+        {
+            return getSuccessor(nodeToSearchUnder.getLeft());
+        }
+        else
+        {
+        	return nodeToSearchUnder;
+        }
+    }
+	
+	//TODO: remove the System prints when deleting
 	public Node<T> delete(Node<T> theNode, Node<T> root)
 	{
 		if(root == null)
@@ -74,42 +89,47 @@ public class BinTree<T extends Comparable<T>>
 			return null;
 		}
 
-		if(data < root.getData()) 
+		if(theNode.compareTo(root) < 0) 
 		{
-            root.setLeft(deleteNode(root.getLeft(), data));
+            root.setLeft(delete(theNode, root.getLeft()));
         } 
-		else if(data > root.getData()) 
+		else if(theNode.compareTo(root) > 0) 
 		{
-            root.setRight(deleteNode(root.getRight(), data));
+            root.setRight(delete(theNode, root.getRight()));
         } 
-		else 
+		else //if we found the node to delete
 		{
-            // node with no leaf nodes
+            // node with no children
             if(root.getLeft() == null && root.getRight() == null) 
             {
-                System.out.println("deleting "+data);
-                return null;
+                System.out.println("deleting "+ theNode.toString());
+                root = null;
+                return root;
             } 
+            //if node has only a right child
             else if(root.getLeft() == null) 
             {
-                // node with one node (no left node)
-                System.out.println("deleting "+data);
-                return root.getRight();
+                System.out.println("deleting "+ theNode.toString());
+                root = root.getRight();
+                return root;
             } 
+            //if node has only a left child
             else if(root.getRight() == null) 
             {
-                // node with one node (no right node)
-                System.out.println("deleting "+data);
-                return root.getLeft();
+            	System.out.println("deleting "+ theNode.toString());
+                root = root.getLeft();
+                return root;
             } 
             else 
             {
-                // nodes with two nodes
-                // search for min number in right sub tree
-                Integer minValue = minValue(root.getRight());
-                root.setData(minValue);
-                root.setRight(deleteNode(root.getRight(), minValue));
-                System.out.println("deleting "+data);
+                // if node with two children
+                // search for successor node
+                Node<T> theSuccessor = getSuccessor(root.getRight());
+                //put its object in the node we are trying to delete
+                root.setObject(theSuccessor.getObject());
+                //recursively delete the successor since we moved it into the current node
+                root.setRight(delete(theSuccessor, root.getRight()));
+                System.out.println("deleting "+theNode.toString());
             }
         }
  
