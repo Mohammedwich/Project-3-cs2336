@@ -15,9 +15,28 @@ public class BinTree<T extends Comparable<T>>
 		root = aNode;
 	}
 	
-	public void insert(Node<T> theNode)
+	// insert anode then return it.
+	public Node<T> insert(Node<T> theNode, Node<T> rootOfTree)
 	{
+		Node<T> currentNode = rootOfTree;
 		
+		if(currentNode == null)
+		{
+			//create a new node with the same object in case the node is one from another tree so we don't null its left/right
+			currentNode = new Node<T>(theNode.getObject()); 
+			currentNode.setLeft(null);
+			currentNode.setRight(null);
+		}
+		else if(theNode.compareTo(currentNode) < 0)
+		{
+			insert(theNode, currentNode.getLeft());
+		}
+		else
+		{
+			insert(theNode, currentNode.getRight()); // if greater than or equal, insert to the right
+		}
+		
+		return currentNode;
 	}
 	
 	public Node<T> search(Node<T> keywordHolderNode, Node<T> rootToBeginAt)
