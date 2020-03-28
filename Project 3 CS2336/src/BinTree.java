@@ -67,9 +67,54 @@ public class BinTree<T extends Comparable<T>>
 		return result;
 	}
 	
-	public void delete(Node<T> theNode)
+	public Node<T> delete(Node<T> theNode, Node<T> root)
 	{
-		
+		if(root == null)
+		{
+			return null;
+		}
+
+		if(data < root.getData()) 
+		{
+            root.setLeft(deleteNode(root.getLeft(), data));
+        } 
+		else if(data > root.getData()) 
+		{
+            root.setRight(deleteNode(root.getRight(), data));
+        } 
+		else 
+		{
+            // node with no leaf nodes
+            if(root.getLeft() == null && root.getRight() == null) 
+            {
+                System.out.println("deleting "+data);
+                return null;
+            } 
+            else if(root.getLeft() == null) 
+            {
+                // node with one node (no left node)
+                System.out.println("deleting "+data);
+                return root.getRight();
+            } 
+            else if(root.getRight() == null) 
+            {
+                // node with one node (no right node)
+                System.out.println("deleting "+data);
+                return root.getLeft();
+            } 
+            else 
+            {
+                // nodes with two nodes
+                // search for min number in right sub tree
+                Integer minValue = minValue(root.getRight());
+                root.setData(minValue);
+                root.setRight(deleteNode(root.getRight(), minValue));
+                System.out.println("deleting "+data);
+            }
+        }
+ 
+        return root;
+
 	}
 	
 	public void sort(boolean byAscending)
