@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 //Mohammed Ahmed, msa190000
 
 public class BinTree<T extends Comparable<T>>
@@ -102,21 +106,21 @@ public class BinTree<T extends Comparable<T>>
             // node with no children
             if(root.getLeft() == null && root.getRight() == null) 
             {
-                System.out.println("deleting "+ theNode.toString());
+                //System.out.println("deleting "+ theNode.toString());
                 root = null;
                 return root;
             } 
             //if node has only a right child
             else if(root.getLeft() == null) 
             {
-                System.out.println("deleting "+ theNode.toString());
+               // System.out.println("deleting "+ theNode.toString());
                 root = root.getRight();
                 return root;
             } 
             //if node has only a left child
             else if(root.getRight() == null) 
             {
-            	System.out.println("deleting "+ theNode.toString());
+            	//System.out.println("deleting "+ theNode.toString());
                 root = root.getLeft();
                 return root;
             } 
@@ -127,9 +131,10 @@ public class BinTree<T extends Comparable<T>>
                 Node<T> theSuccessor = getSuccessor(root.getRight());
                 //put its object in the node we are trying to delete
                 root.setObject(theSuccessor.getObject());
-                //recursively delete the successor since we moved it into the current node
+                //Call delete() on the successor since we moved it into the current node. 
+                //Its right child will be moved into its place as programmed above.
                 root.setRight(delete(theSuccessor, root.getRight()));
-                System.out.println("deleting "+theNode.toString());
+               // System.out.println("deleting "+theNode.toString());
             }
         }
  
@@ -137,9 +142,32 @@ public class BinTree<T extends Comparable<T>>
 
 	}
 	
-	public void sort(boolean byAscending)
-	{
+	public void writeSorted(Node<T> root, boolean byAscending, FileWriter writer) throws IOException
+	{	
+		if(byAscending == true)
+		{
+			if (root == null)
+			{
+				return;
+			}                  
+			
+			writeSorted(root.getLeft(), byAscending, writer); 
+			writer.append(root.toString());                   
+			writeSorted(root.getRight(), byAscending, writer); 
+		}
 		
+		if(byAscending == false)
+		{
+			if (root == null)
+			{
+				return;
+			}                  
+			
+			writeSorted(root.getRight(), byAscending, writer); 
+			writer.append(root.toString());                   
+			writeSorted(root.getLeft(), byAscending, writer); 
+		}
+
 	}
 	
 	@Override
