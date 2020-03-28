@@ -58,30 +58,30 @@ public class BinTree<T extends Comparable<T>>
 			result = currentNode;
 			return result; // The desired node was found
 		}
-		else if (keywordHolderNode.compareTo(currentNode) < 0) //if node is to the left of currentNode, create new tree from subtree and search it
+		else if (keywordHolderNode.compareTo(currentNode) < 0) 
 		{
-			search(keywordHolderNode, currentNode.getLeft());
+			search(keywordHolderNode, currentNode.getLeft()); //search the left subtree if what we want is less than currentNode
 		}
-		else if (keywordHolderNode.compareTo(currentNode) > 0) //if node is to the right of currentNode, create new tree from subtree and search it
+		else if (keywordHolderNode.compareTo(currentNode) > 0) 
 		{
-			search(keywordHolderNode, currentNode.getRight());
+			search(keywordHolderNode, currentNode.getRight()); //search the right subtree if what we want is greater than currentNode
 		}
 		
 		
 		return result;
 	}
 	
-	//feed this function the right child of the node that is being deleted
-	private Node<T> getSuccessor(Node<T> nodeToSearchUnder) 
+	//Helper function: feed this function the right child of the node that is being deleted
+	private Node<T> getSuccessor(Node<T> rightChildOfDeletedNode) 
 	{
 		// keep recursing until we have the left-most node of the right branch of the node we are deleting and return that
-        if(nodeToSearchUnder.getLeft() != null) 
+        if(rightChildOfDeletedNode.getLeft() != null) 
         {
-            return getSuccessor(nodeToSearchUnder.getLeft());
+            return getSuccessor(rightChildOfDeletedNode.getLeft());
         }
         else
         {
-        	return nodeToSearchUnder;
+        	return rightChildOfDeletedNode;
         }
     }
 	
@@ -124,9 +124,8 @@ public class BinTree<T extends Comparable<T>>
                 root = root.getLeft();
                 return root;
             } 
-            else 
+            else   // if node with two children
             {
-                // if node with two children
                 // search for successor node
                 Node<T> theSuccessor = getSuccessor(root.getRight());
                 //put its object in the node we are trying to delete
@@ -170,7 +169,7 @@ public class BinTree<T extends Comparable<T>>
 
 	}
 	
-	// Recursively appends each node in the tree to the builder provided by toString()
+	// Helper function: Recursively appends each node in the tree to the builder provided by toString()
 	private void adder(Node<T> root, StringBuilder builder)
 	{		
 		if (root == null)
