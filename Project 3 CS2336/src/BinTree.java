@@ -164,16 +164,35 @@ public class BinTree<T extends Comparable<T>>
 			}                  
 			
 			writeSorted(root.getRight(), byAscending, writer); 
-			writer.append(root.toString());                   
+			writer.append(root.toString() + "\n");                   
 			writeSorted(root.getLeft(), byAscending, writer); 
 		}
 
 	}
 	
+	// Recursively appends each node in the tree to the builder provided by toString()
+	private void adder(Node<T> root, StringBuilder builder)
+	{		
+		if (root == null)
+		{
+			return;
+		} 
+		
+		adder(root.getRight(), builder); 
+		builder.append(root.toString() + "\n");                   
+		adder(root.getLeft(), builder); 
+	}
+	
 	@Override
 	public String toString()
 	{
+		StringBuilder result = new StringBuilder();
 		
+		adder(root, result);
+		
+		return result.toString();
 	}
+	
+	
 	
 }
