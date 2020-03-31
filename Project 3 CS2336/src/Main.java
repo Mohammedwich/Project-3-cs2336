@@ -32,7 +32,11 @@ public class Main
 			System.out.println("Batch File does not exist");
 		}
 		
-		//create output file
+		//create output file that will hold the displayed tree
+		File outputDatFile = new File("cidercade.dat");
+		outputDatFile.createNewFile();
+				
+		//create output file that will hold batch file commands' output
 		File outputLogFile = new File("cidercade.log");
 		outputLogFile.createNewFile();
 		

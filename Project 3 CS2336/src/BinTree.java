@@ -2,6 +2,7 @@
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class BinTree<T extends Comparable<T>>
@@ -43,6 +44,7 @@ public class BinTree<T extends Comparable<T>>
 		return currentNode;
 	}
 	
+	
 	public Node<T> search(Node<T> keywordHolderNode, Node<T> rootToBeginAt)
 	{
 		Node<T> currentNode = rootToBeginAt;
@@ -70,6 +72,27 @@ public class BinTree<T extends Comparable<T>>
 		
 		return result;
 	}
+	
+	
+	//TODO: implement this, check if it is good
+	//This search requires an empty arrayList so it can fill it with partial matches
+	public void search2(Node<T> theNode, Node<T> rootOfTree, ArrayList<Node<T>> theList)
+	{		
+		if (rootOfTree == null)
+		{
+			return;
+		}                  
+		
+		search2(theNode, rootOfTree.getLeft(), theList); 
+		
+		if(rootOfTree.equals(theNode))
+		{
+			theList.add(theNode);
+		}
+		
+		search2(theNode, rootOfTree.getRight(), theList); 
+	}
+	
 	
 	public void edit(Node<T> nodeToEdit, Node<T> newNode)
 	{
