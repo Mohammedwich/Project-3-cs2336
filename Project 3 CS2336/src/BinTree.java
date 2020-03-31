@@ -20,28 +20,54 @@ public class BinTree<T extends Comparable<T>>
 		root = aNode;
 	}
 	
-	// insert anode then return it.
-	public Node<T> insert(Node<T> theNode, Node<T> rootOfTree)
+	public Node<T> getRoot()
 	{
-		Node<T> currentNode = rootOfTree;
+		return root;
+	}
+	
+	public void setRoot(Node<T> theNode)
+	{
+		root = theNode;
+	}
+	
+	public void setNode(Node<T> inputNode, Node<T> nodeBeingChanged)
+	{
+		nodeBeingChanged = inputNode;
+	}
+	
+	// insert anode then return it.
+	public void insert(Node<T> theNode, Node<T> rootOfTree)
+	{
+		//Node<T> currentNode = rootOfTree;
 		
-		if(currentNode == null)
+		if(rootOfTree == null)
 		{
-			//create a new node with the same object in case the node is one from another tree so we don't null its left/right
-			currentNode = new Node<T>(theNode.getObject()); 
-			currentNode.setLeft(null);
-			currentNode.setRight(null);
+			root = theNode;
 		}
-		else if(theNode.compareTo(currentNode) < 0)
+		else if(theNode.compareTo(rootOfTree) < 0)
 		{
-			insert(theNode, currentNode.getLeft());
+			if(rootOfTree.getLeft() == null)
+			{
+				rootOfTree.setLeft(theNode);
+			}
+			else
+			{
+				insert(theNode, rootOfTree.getLeft());
+			}			
 		}
 		else
 		{
-			insert(theNode, currentNode.getRight()); // if greater than or equal, insert to the right
+			if(rootOfTree.getRight() == null)
+			{
+				rootOfTree.setRight(theNode);
+			}
+			else
+			{
+				insert(theNode, rootOfTree.getRight());
+			}	
 		}
 		
-		return currentNode;
+		//return currentNode;
 	}
 	
 	
@@ -205,9 +231,9 @@ public class BinTree<T extends Comparable<T>>
 			return;
 		} 
 		
-		adder(root.getRight(), builder); 
-		builder.append(root.toString() + "\n");                   
 		adder(root.getLeft(), builder); 
+		builder.append(root.toString() + "\n");                   
+		adder(root.getRight(), builder); 
 	}
 	
 	@Override

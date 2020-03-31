@@ -9,6 +9,21 @@ public class Main
 
 	public static void main(String[] args) throws IOException
 	{
+		BinTree<Payload> testTree = new BinTree<Payload>();
+		
+		Payload item1 = new Payload("Jack", 2000, "J.R.", 7);
+		Node<Payload> item1Node = new Node<Payload>(item1);
+		testTree.insert(item1Node, testTree.getRoot());
+		
+		Payload item2 = new Payload("Billy", 3000, "B.J.", 9);
+		Node<Payload> item2Node = new Node<Payload>(item2);
+		testTree.insert(item2Node, testTree.getRoot());
+		
+		String testString = testTree.toString();
+		
+		System.out.println(testString);
+		
+		/*
 		//Take file name from user and open the files
 		String databaseFileName;
 		String batchFileName;
@@ -42,9 +57,14 @@ public class Main
 		
 		
 		
+		BinTree<Node<Payload>> databaseTree = new BinTree<Node<Payload>>();
+		
+		
+		
 		
 		
 		inputReader.close();
+		*/
 	} // main end
 
 }
