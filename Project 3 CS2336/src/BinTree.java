@@ -84,15 +84,15 @@ public class BinTree<T extends Comparable<T>>
 		if (keywordHolderNode.compareTo(currentNode) == 0) //if node found
 		{ 
 			result = currentNode;
-			return result; // The desired node was found
+			//return result; // The desired node was found
 		}
 		else if (keywordHolderNode.compareTo(currentNode) < 0) 
 		{
-			search(keywordHolderNode, currentNode.getLeft()); //search the left subtree if what we want is less than currentNode
+			result = search(keywordHolderNode, currentNode.getLeft()); //search the left subtree if what we want is less than currentNode
 		}
 		else if (keywordHolderNode.compareTo(currentNode) > 0) 
 		{
-			search(keywordHolderNode, currentNode.getRight()); //search the right subtree if what we want is greater than currentNode
+			result = search(keywordHolderNode, currentNode.getRight()); //search the right subtree if what we want is greater than currentNode
 		}
 		
 		
@@ -111,9 +111,9 @@ public class BinTree<T extends Comparable<T>>
 		
 		search2(theNode, rootOfTree.getLeft(), theList); 
 		
-		if(rootOfTree.equals(theNode))
+		if(rootOfTree.equals(theNode) == true)
 		{
-			theList.add(theNode);
+			theList.add(rootOfTree);
 		}
 		
 		search2(theNode, rootOfTree.getRight(), theList); 

@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 //Mohammed Ahmed, msa190000
@@ -19,9 +20,22 @@ public class Main
 		Node<Payload> item2Node = new Node<Payload>(item2);
 		testTree.insert(item2Node, testTree.getRoot());
 		
+		Payload item3 = new Payload("Bill", 1000, "B.B.", 8);
+		Node<Payload> item3Node = new Node<Payload>(item3);
+		testTree.insert(item3Node, testTree.getRoot());
+		
 		String testString = testTree.toString();
 		
 		System.out.println(testString);
+		
+		
+		Node<Payload> searchNode = new Node<Payload>(new Payload("Bill"));
+		Node<Payload> searchResultNode = testTree.search(searchNode, testTree.getRoot());
+		
+		ArrayList<Node<Payload>> searchList = new ArrayList<Node<Payload>>();
+		testTree.search2(searchNode, testTree.getRoot(), searchList);
+		
+		System.out.println(searchList);
 		
 		/*
 		//Take file name from user and open the files

@@ -16,6 +16,12 @@ public class Payload implements Comparable<Payload>
 		plays = 0;
 	}
 	
+	public Payload(String theName)
+	{
+		this();
+		name = theName;
+	}
+	
 	public Payload(String theName, int theHighScore, String theInitials, int thePlays)
 	{
 		this();
@@ -100,8 +106,14 @@ public class Payload implements Comparable<Payload>
 		}
 		else
 		{
-			if(name.contains(((Payload)someObject).getName()));
-			return true;
+			if(name.contains(((Payload)someObject).getName()))
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
 	}
 	
