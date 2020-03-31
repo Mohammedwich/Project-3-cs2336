@@ -71,6 +71,11 @@ public class BinTree<T extends Comparable<T>>
 		return result;
 	}
 	
+	public void edit(Node<T> nodeToEdit, Node<T> newNode)
+	{
+		//TODO: implement this
+	}
+	
 	//Helper function: feed this function the right child of the node that is being deleted
 	private Node<T> getSuccessor(Node<T> rightChildOfDeletedNode) 
 	{

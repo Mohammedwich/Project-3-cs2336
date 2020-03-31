@@ -67,4 +67,18 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>>
 		return result;
 	}
 
+	@Override
+	public boolean equals(Object someObject)
+	{
+		if(!(someObject instanceof Node) )
+		{
+			return false;
+		}
+		else
+		{
+			boolean result = heldObject.equals( ((Node<?>)someObject).getObject() );
+
+			return result;
+		}
+	}
 }

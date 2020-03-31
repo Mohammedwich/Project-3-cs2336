@@ -90,5 +90,20 @@ public class Payload implements Comparable<Payload>
 		
 		return result.toString();
 	}
+	
+	@Override
+	public boolean equals(Object someObject) //return true if the name contains the search term
+	{
+		if(!(someObject instanceof Payload) )
+		{
+			return false;
+		}
+		else
+		{
+			if(name.contains(((Payload)someObject).getName()));
+			return true;
+		}
+	}
+	
 }
 
