@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -24,18 +25,42 @@ public class Main
 		Node<Payload> item3Node = new Node<Payload>(item3);
 		testTree.insert(item3Node, testTree.getRoot());
 		
-		String testString = testTree.toString();
+		//String testString = testTree.toString();
 		
-		System.out.println(testString);
+		//System.out.println(testString);
 		
 		
 		Node<Payload> searchNode = new Node<Payload>(new Payload("Bill"));
-		Node<Payload> searchResultNode = testTree.search(searchNode, testTree.getRoot());
+		//Node<Payload> searchResultNode = testTree.search(searchNode, testTree.getRoot());
 		
-		ArrayList<Node<Payload>> searchList = new ArrayList<Node<Payload>>();
-		testTree.search2(searchNode, testTree.getRoot(), searchList);
+		//ArrayList<Node<Payload>> searchList = new ArrayList<Node<Payload>>();
+		//testTree.search2(searchNode, testTree.getRoot(), searchList);
 		
-		System.out.println(searchList);
+		//System.out.println(searchList);
+		
+		Payload item4 = new Payload("Bill", 5555, "B.B.", 10);
+		Node<Payload> item4Node = new Node<Payload>(item4);
+		testTree.edit(searchNode, item4Node);
+		
+		//testString = testTree.toString();
+		//System.out.println(testString);
+		
+		
+		//testTree.delete(searchNode, testTree.getRoot());
+		
+		//testString = testTree.toString();
+		//System.out.println(testString);
+		
+		
+		File testFile = new File("testFile.txt");
+		testFile.createNewFile();
+		FileWriter testWriter = new FileWriter(testFile);
+		
+		testTree.writeSorted(testTree.getRoot(), true, testWriter);
+		
+		testWriter.close();
+		
+		//*********************************************************************
 		
 		/*
 		//Take file name from user and open the files
@@ -81,4 +106,6 @@ public class Main
 		*/
 	} // main end
 
+	
+	
 }

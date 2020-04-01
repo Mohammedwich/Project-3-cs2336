@@ -100,7 +100,6 @@ public class BinTree<T extends Comparable<T>>
 	}
 	
 	
-	//TODO: implement this, check if it is good
 	//This search requires an empty arrayList so it can fill it with partial matches
 	public void search2(Node<T> theNode, Node<T> rootOfTree, ArrayList<Node<T>> theList)
 	{		
@@ -122,7 +121,24 @@ public class BinTree<T extends Comparable<T>>
 	
 	public void edit(Node<T> nodeToEdit, Node<T> newNode)
 	{
-		//TODO: implement this
+		Node<T> currentNode = root;
+		
+		while(currentNode != null)
+		{
+			if(nodeToEdit.compareTo(currentNode) == 0)
+			{
+				currentNode.setObject(newNode.getObject());
+				return;
+			}
+			else if(nodeToEdit.compareTo(currentNode) < 0)
+			{
+				currentNode = currentNode.getLeft();
+			}
+			else
+			{
+				currentNode = currentNode.getRight();
+			}
+		}
 	}
 	
 	//Helper function: feed this function the right child of the node that is being deleted
@@ -195,45 +211,50 @@ public class BinTree<T extends Comparable<T>>
 
 	}
 	
-	public void writeSorted(Node<T> root, boolean byAscending, FileWriter writer) throws IOException
+	public void writeSorted(Node<T> currentRoot, boolean byAscending, FileWriter writer) throws IOException
 	{	
+		Node<T> currentNode = currentRoot;
+		
 		if(byAscending == true)
 		{
-			if (root == null)
+			if (currentNode == null)
 			{
 				return;
 			}                  
 			
-			writeSorted(root.getLeft(), byAscending, writer); 
-			writer.append(root.toString());                   
-			writeSorted(root.getRight(), byAscending, writer); 
+			writeSorted(currentNode.getLeft(), byAscending, writer); 
+			writer.append(currentNode.toString() + "\n");   
+			System.out.print(currentNode.toString() + "\n");
+			writeSorted(currentNode.getRight(), byAscending, writer); 
 		}
 		
 		if(byAscending == false)
 		{
-			if (root == null)
+			if (currentNode == null)
 			{
 				return;
 			}                  
 			
-			writeSorted(root.getRight(), byAscending, writer); 
-			writer.append(root.toString() + "\n");                   
-			writeSorted(root.getLeft(), byAscending, writer); 
+			writeSorted(currentNode.getRight(), byAscending, writer); 
+			writer.append(currentNode.toString() + "\n");                   
+			writeSorted(currentNode.getLeft(), byAscending, writer); 
 		}
 
 	}
 	
 	// Helper function: Recursively appends each node in the tree to the builder provided by toString()
-	private void adder(Node<T> root, StringBuilder builder)
+	private void adder(Node<T> currentRoot, StringBuilder builder)
 	{		
-		if (root == null)
+		Node<T> currentNode = currentRoot;
+		
+		if (currentNode == null)
 		{
 			return;
 		} 
 		
-		adder(root.getLeft(), builder); 
-		builder.append(root.toString() + "\n");                   
-		adder(root.getRight(), builder); 
+		adder(currentNode.getLeft(), builder); 
+		builder.append(currentNode.toString() + "\n");                   
+		adder(currentNode.getRight(), builder); 
 	}
 	
 	@Override
