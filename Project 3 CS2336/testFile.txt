@@ -1,0 +1,18 @@
+Name: Bill
+High Score: 5555
+Initials: B.B.
+Plays: 10
+Revenue: $2.50
+
+Name: Billy
+High Score: 3000
+Initials: B.J.
+Plays: 9
+Revenue: $2.25
+
+Name: Jack
+High Score: 2000
+Initials: J.R.
+Plays: 7
+Revenue: $1.75
+

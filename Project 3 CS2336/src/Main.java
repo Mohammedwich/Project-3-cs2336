@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,58 +12,8 @@ public class Main
 
 	public static void main(String[] args) throws IOException
 	{
-		BinTree<Payload> testTree = new BinTree<Payload>();
+	
 		
-		Payload item1 = new Payload("Jack", 2000, "J.R.", 7);
-		Node<Payload> item1Node = new Node<Payload>(item1);
-		testTree.insert(item1Node, testTree.getRoot());
-		
-		Payload item2 = new Payload("Billy", 3000, "B.J.", 9);
-		Node<Payload> item2Node = new Node<Payload>(item2);
-		testTree.insert(item2Node, testTree.getRoot());
-		
-		Payload item3 = new Payload("Bill", 1000, "B.B.", 8);
-		Node<Payload> item3Node = new Node<Payload>(item3);
-		testTree.insert(item3Node, testTree.getRoot());
-		
-		//String testString = testTree.toString();
-		
-		//System.out.println(testString);
-		
-		
-		Node<Payload> searchNode = new Node<Payload>(new Payload("Bill"));
-		//Node<Payload> searchResultNode = testTree.search(searchNode, testTree.getRoot());
-		
-		//ArrayList<Node<Payload>> searchList = new ArrayList<Node<Payload>>();
-		//testTree.search2(searchNode, testTree.getRoot(), searchList);
-		
-		//System.out.println(searchList);
-		
-		Payload item4 = new Payload("Bill", 5555, "B.B.", 10);
-		Node<Payload> item4Node = new Node<Payload>(item4);
-		testTree.edit(searchNode, item4Node);
-		
-		//testString = testTree.toString();
-		//System.out.println(testString);
-		
-		
-		//testTree.delete(searchNode, testTree.getRoot());
-		
-		//testString = testTree.toString();
-		//System.out.println(testString);
-		
-		
-		File testFile = new File("testFile.txt");
-		testFile.createNewFile();
-		FileWriter testWriter = new FileWriter(testFile);
-		
-		testTree.writeSorted(testTree.getRoot(), true, testWriter);
-		
-		testWriter.close();
-		
-		//*********************************************************************
-		
-		/*
 		//Take file name from user and open the files
 		String databaseFileName;
 		String batchFileName;
@@ -95,17 +46,188 @@ public class Main
 		outputLogFile.createNewFile();
 		
 		
+		Scanner databaseReader = new Scanner(databaseFile);
+		Scanner batchReader = new Scanner(batchFile);
+		FileWriter treeWriter = new FileWriter(outputDatFile);
+		FileWriter logWriter = new FileWriter(outputLogFile);
 		
-		BinTree<Node<Payload>> databaseTree = new BinTree<Node<Payload>>();
+		///////////////////////////////////////////////////////////////////////////////////////////
 		
+		
+		//This tree will hold all the records and have commands from the batch file executed upon it
+		BinTree<Payload> databaseTree = new BinTree<Payload>();
+		
+		
+		// Read database file and store items in the tree
+		while(databaseReader.hasNextLine())
+		{
+			String currentLine = databaseReader.nextLine();
+			//TODO: use regex to skip invalid lines here if needed
+			
+			Scanner lineReader = new Scanner(currentLine);
+			lineReader.useDelimiter(", "); // terms separated by comma and space
+			
+			while(lineReader.hasNext())
+			{
+				String name = lineReader.next();
+				
+				String highScoreString = lineReader.next();
+				int highScore = Integer.parseInt(highScoreString);
+				
+				String initials = lineReader.next();
+				
+				String playsString = lineReader.next();
+				int plays = Integer.parseInt(playsString);
+				
+				String revenueString = lineReader.next();
+				//TODO: parse revenue if needed here
+				
+				//create and add the record to the tree
+				Payload thePayload = new Payload(name, highScore, initials, plays);
+				Node<Payload> theNode = new Node<Payload>(thePayload);
+				databaseTree.insert(theNode, databaseTree.getRoot());
+			}
+			lineReader.close();
+		}
+		
+		// execute commands from the batch file
+		while(batchReader.hasNextLine())
+		{
+			String currentLine = batchReader.nextLine();
+			
+			Scanner lineReader = new Scanner(currentLine);
+			
+			while(lineReader.hasNext())
+			{
+				String commandString = lineReader.next();
+				int command = Integer.parseInt(commandString);
+				
+				// Add record command
+				if(command == 1)
+				{
+					//name in quotations so we want to take it all
+					lineReader.useDelimiter("\" ");
+					String name = lineReader.next();
+					lineReader.useDelimiter(" ");
+					
+					String highScoreString = lineReader.next();
+					int highScore = Integer.parseInt(highScoreString);
+					
+					String initials = lineReader.next();
+					
+					String playsString = lineReader.next();
+					int plays = Integer.parseInt(playsString);
+					
+					String revenueString = lineReader.next();
+					//TODO: parse revenue if needed here
+					
+					// add record to tree
+					Payload thePayload = new Payload(name, highScore, initials, plays);
+					Node<Payload> theNode = new Node<Payload>(thePayload);
+					databaseTree.insert(theNode, databaseTree.getRoot());
+					
+					//log command to log file
+					logWriter.append("RECORD ADDED\n");
+					logWriter.append(thePayload.toString() + "\n");
+					
+				} 
+				//Search record command
+				else if(command == 2)
+				{
+					String searchTerm = lineReader.next();
+					ArrayList<Node<Payload>> searchResultsList = new ArrayList<Node<Payload>>();
+					
+					//Fill up the list with all partial matches
+					Payload thePayload = new Payload(searchTerm);
+					Node<Payload> theNode = new Node<Payload>(thePayload);
+					databaseTree.search(theNode, databaseTree.getRoot(), searchResultsList);
+					
+					// log command to log file
+					if(searchResultsList.isEmpty())
+					{
+						logWriter.append(searchTerm + " NOT FOUND\n\n");
+					}
+					else
+					{
+						logWriter.append(searchTerm + " FOUND\n");
+						logWriter.append(thePayload.toStringWithoutName() + "\n");
+					}
+					
+				}
+				else if(command == 3) //Edit an entry
+				{
+					//name in quotations so we want to take it all
+					lineReader.useDelimiter("\" ");
+					String name = lineReader.next();
+					lineReader.useDelimiter(" ");
+					
+					String fieldNumberString = lineReader.next();
+					int fieldNumber = Integer.parseInt(fieldNumberString);
+					String fieldDescription = "";
+					
+					String newValueString = lineReader.next();
+					
+					Node<Payload> keywordHolderNode = new Node<Payload>(new Payload(name));
+					Node<Payload> changingNode = databaseTree.findNode(keywordHolderNode, databaseTree.getRoot());
+					
+					if(fieldNumber == 1) //change high score
+					{
+						int newHighscore = Integer.parseInt(newValueString);
+						(changingNode.getObject()).setHighScore(newHighscore);
+						
+						databaseTree.edit(keywordHolderNode, changingNode);
+						
+						fieldDescription = "high score";
+					}
+					else if(fieldNumber == 2) //change initials
+					{
+						String newInitials = newValueString;
+						(changingNode.getObject()).setInitials(newInitials);
+						
+						databaseTree.edit(keywordHolderNode, changingNode);
+
+						fieldDescription = "initials";
+					}
+					else if(fieldNumber == 3) //change plays
+					{
+						int newPlays = Integer.parseInt(newValueString);
+						(changingNode.getObject()).setPlays(newPlays);
+						
+						databaseTree.edit(keywordHolderNode, changingNode);
+
+						fieldDescription = "plays";
+					}
+					
+					//log command to log file
+					logWriter.append(name + " UPDATED\n");
+					logWriter.append("UPDATE TO "+ fieldDescription + " - " + "VALUE " + newValueString + "\n");
+					logWriter.append(changingNode.toString() + "\n");
+					
+				} //end of edit command
+				// delete a record
+				else if(command == 4)
+				{
+					
+				}
+				
+				lineReader.close();
+			}
+		}
+			
 		
 		
 		
 		
 		inputReader.close();
-		*/
+		databaseReader.close();
+		batchReader.close();
+		treeWriter.close();
+		logWriter.close();		
+		
 	} // main end
 
+	////////////////////////////////////////////////////////////////////////////////////////////
+	
 	
 	
 }

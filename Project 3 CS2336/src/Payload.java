@@ -7,6 +7,7 @@ public class Payload implements Comparable<Payload>
 	private int highScore;
 	private String initials;
 	private int plays;
+	private double revenue;
 
 	public Payload()
 	{
@@ -14,6 +15,7 @@ public class Payload implements Comparable<Payload>
 		highScore = 0;
 		initials = "";
 		plays = 0;
+		revenue = 0.0;
 	}
 	
 	public Payload(String theName)
@@ -29,6 +31,7 @@ public class Payload implements Comparable<Payload>
 		highScore = theHighScore;
 		initials = theInitials;
 		plays = thePlays;
+		revenue = 0.25 * plays;
 	}
 	
 	public String getName()
@@ -70,6 +73,7 @@ public class Payload implements Comparable<Payload>
 	public void setPlays(int thePlays)
 	{
 		plays = thePlays;
+		revenue = 0.25 * plays;
 	}
 
 
@@ -96,6 +100,23 @@ public class Payload implements Comparable<Payload>
 		
 		return result.toString();
 	}
+	
+	public String toStringWithoutName()
+	{
+		double revenue = 0.25 * plays;
+		
+		StringBuilder result = new StringBuilder();
+		
+		result.append("High Score: " + highScore + "\n");
+		result.append("Initials: " + initials + "\n");
+		result.append("Plays: " + plays + "\n");
+		//formatting the revenue string before appending it
+		String revenueString = String.format("Revenue: $%.2f\n", revenue);
+		result.append(revenueString);
+		
+		return result.toString();
+	}
+	
 	
 	@Override
 	public boolean equals(Object someObject) //return true if the name contains the search term

@@ -71,7 +71,7 @@ public class BinTree<T extends Comparable<T>>
 	}
 	
 	
-	public Node<T> search(Node<T> keywordHolderNode, Node<T> rootToBeginAt)
+	public Node<T> findNode(Node<T> keywordHolderNode, Node<T> rootToBeginAt)
 	{
 		Node<T> currentNode = rootToBeginAt;
 		Node<T> result = null;
@@ -88,11 +88,11 @@ public class BinTree<T extends Comparable<T>>
 		}
 		else if (keywordHolderNode.compareTo(currentNode) < 0) 
 		{
-			result = search(keywordHolderNode, currentNode.getLeft()); //search the left subtree if what we want is less than currentNode
+			result = findNode(keywordHolderNode, currentNode.getLeft()); //search the left subtree if what we want is less than currentNode
 		}
 		else if (keywordHolderNode.compareTo(currentNode) > 0) 
 		{
-			result = search(keywordHolderNode, currentNode.getRight()); //search the right subtree if what we want is greater than currentNode
+			result = findNode(keywordHolderNode, currentNode.getRight()); //search the right subtree if what we want is greater than currentNode
 		}
 		
 		
@@ -101,21 +101,21 @@ public class BinTree<T extends Comparable<T>>
 	
 	
 	//This search requires an empty arrayList so it can fill it with partial matches
-	public void search2(Node<T> theNode, Node<T> rootOfTree, ArrayList<Node<T>> theList)
+	public void search(Node<T> theNode, Node<T> rootOfTree, ArrayList<Node<T>> theList)
 	{		
 		if (rootOfTree == null)
 		{
 			return;
 		}                  
 		
-		search2(theNode, rootOfTree.getLeft(), theList); 
+		search(theNode, rootOfTree.getLeft(), theList); 
 		
 		if(rootOfTree.equals(theNode) == true)
 		{
 			theList.add(rootOfTree);
 		}
 		
-		search2(theNode, rootOfTree.getRight(), theList); 
+		search(theNode, rootOfTree.getRight(), theList); 
 	}
 	
 	
