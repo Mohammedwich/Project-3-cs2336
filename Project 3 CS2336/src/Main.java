@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 //Mohammed Ahmed, msa190000
 
@@ -105,12 +106,16 @@ public class Main
 				// Add record command
 				if(command == 1)
 				{
-					//name in quotations so we want to take it all
+					//name in quotations so we want to pick the name out
+					Pattern pattern = Pattern.compile("[a-zA-Z]");
+					lineReader.useDelimiter(pattern);
+					lineReader.next(); // ditch the space and opening quotation mark
 					lineReader.useDelimiter("\" ");
 					String name = lineReader.next();
 					lineReader.useDelimiter(" ");
 					
-					String highScoreString = lineReader.next();
+					lineReader.next(); //ditch the ending quotation mark
+					String highScoreString = lineReader.next();					
 					int highScore = Integer.parseInt(highScoreString);
 					
 					String initials = lineReader.next();
@@ -169,10 +174,16 @@ public class Main
 				}
 				else if(command == 3) //Edit an entry
 				{
-					//name in quotations so we want to take it all
+					//name in quotations so we want to pick the name out
+					Pattern pattern = Pattern.compile("[a-zA-Z]");
+					lineReader.useDelimiter(pattern);
+					lineReader.next(); // ditch the space and opening quotation mark
 					lineReader.useDelimiter("\" ");
+					
 					String name = lineReader.next();
+					
 					lineReader.useDelimiter(" ");
+					lineReader.next(); //ditch the ending quotation mark
 					
 					String fieldNumberString = lineReader.next();
 					int fieldNumber = Integer.parseInt(fieldNumberString);
