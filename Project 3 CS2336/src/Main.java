@@ -309,10 +309,9 @@ public class Main
 						}
 					}
 					
-				} //sort command end
-				
-				lineReader.close();
+				} //sort command end				
 			}
+			lineReader.close();
 		} //batch file processing end
 			
 		
