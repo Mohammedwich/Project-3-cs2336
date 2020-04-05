@@ -94,7 +94,7 @@ public class Main
 		while(batchReader.hasNextLine())
 		{
 			String currentLine = batchReader.nextLine();
-			
+			//TODO: confirm valid line if needed
 			Scanner lineReader = new Scanner(currentLine);
 			
 			while(lineReader.hasNext())
@@ -128,7 +128,7 @@ public class Main
 					
 					//log command to log file
 					logWriter.append("RECORD ADDED\n");
-					logWriter.append(thePayload.toString() + "\n");
+					logWriter.append(thePayload.toString() + "\n\n");
 					
 				} 
 				//Search record command
@@ -154,12 +154,12 @@ public class Main
 					// log command to log file
 					if(searchResultsList.isEmpty())
 					{
-						logWriter.append(searchTerm + " NOT FOUND\n\n");
+						logWriter.append(searchTerm + " NOT FOUND\n\n\n");
 					}
 					else
 					{
 						logWriter.append(searchTerm + " FOUND\n");
-						logWriter.append(thePayload.toStringWithoutName() + "\n");
+						logWriter.append(thePayload.toStringWithoutName() + "\n\n");
 					}
 					
 				}
@@ -210,7 +210,7 @@ public class Main
 					//log command to log file
 					logWriter.append(name + " UPDATED\n");
 					logWriter.append("UPDATE TO "+ fieldDescription + " - " + "VALUE " + newValueString + "\n");
-					logWriter.append(changingNode.toString() + "\n");
+					logWriter.append(changingNode.toString() + "\n\n");
 					
 				} //end of edit command
 				// delete a record
@@ -231,7 +231,7 @@ public class Main
 					Node<Payload> nodeToDelete = databaseTree.findNode(keywordHolderNode, databaseTree.getRoot());
 					
 					logWriter.append("RECORD DELETED\n");
-					logWriter.append(nodeToDelete.toString() + "\n");
+					logWriter.append(nodeToDelete.toString() + "\n\n");
 					
 					databaseTree.delete(nodeToDelete, databaseTree.getRoot());
 				}
@@ -244,13 +244,13 @@ public class Main
 					{
 						logWriter.append("RECORDS SORTED ASCENDING\n");
 						databaseTree.writeSorted(databaseTree.getRoot(), true, logWriter);
-						logWriter.append("\n");
+						logWriter.append("\n\n");
 					}
 					else if(ascOrDec.compareTo("dec") == 0)
 					{
 						logWriter.append("RECORDS SORTED DESCENDING\n");
 						databaseTree.writeSorted(databaseTree.getRoot(), false, logWriter);
-						logWriter.append("\n");
+						logWriter.append("\n\n");
 					}
 					else
 					{
@@ -260,7 +260,7 @@ public class Main
 				
 				lineReader.close();
 			}
-		}
+		} //batch file processing end
 			
 		
 		
