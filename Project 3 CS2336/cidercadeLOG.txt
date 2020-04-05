@@ -1,0 +1,62 @@
+RECORD ADDED
+Name: Centipede
+High Score: 5550000
+Initials: DKV
+Plays: 50
+$12.50
+
+
+RECORD ADDED
+Name: Mousetrap
+High Score: 895230
+Initials: WJS
+Plays: 12
+$3.00
+
+
+Donkey Kong NOT FOUND
+
+
+RECORD ADDED
+Name: Defender
+High Score: 750245000
+Initials: LEH
+Plays: 100
+$25.00
+
+
+RECORD ADDED
+Name: Frogger
+High Score: 93022440
+Initials: NRI
+Plays: 7250
+$1812.50
+
+
+Frogger FOUND
+High Score: 93022440
+Initials: NRI
+Plays: 7250
+Revenue: $1812.50
+
+
+RECORDS SORTED ASCENDING
+Centipede, 5550000, DKV, 50, Revenue: $12.50
+Defender, 750245000, LEH, 100, Revenue: $25.00
+Frogger, 93022440, NRI, 7250, Revenue: $1812.50
+Mousetrap, 895230, WJS, 12, Revenue: $3.00
+name1, 111, initials1, 1, Revenue: $0.25
+name2, 222, initials2, 2, Revenue: $0.50
+name3, 333, initials3, 3, Revenue: $0.75
+
+
+RECORDS SORTED DESCENDING
+name3, 333, initials3, 3, Revenue: $0.75
+name2, 222, initials2, 2, Revenue: $0.50
+name1, 111, initials1, 1, Revenue: $0.25
+Mousetrap, 895230, WJS, 12, Revenue: $3.00
+Frogger, 93022440, NRI, 7250, Revenue: $1812.50
+Defender, 750245000, LEH, 100, Revenue: $25.00
+Centipede, 5550000, DKV, 50, Revenue: $12.50
+
+

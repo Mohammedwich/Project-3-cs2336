@@ -3,6 +3,8 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -166,7 +168,7 @@ public class Main
 						for(Node<Payload> currentNode : searchResultsList)
 						{
 							logWriter.append(searchTerm + " FOUND\n");
-							logWriter.append(currentNode.getObject().toStringWithoutName() + "\n\n");
+							logWriter.append(currentNode.getObject().toStringWithoutName() + "\n");
 						}
 						logWriter.append("\n");
 					}
@@ -273,7 +275,7 @@ public class Main
 								recordBuilder.append(currentNode.getObject().getHighScore() + ", ");
 								recordBuilder.append(currentNode.getObject().getInitials() + ", ");
 								recordBuilder.append(currentNode.getObject().getPlays() + ", ");
-								recordBuilder.append(currentNode.getObject().getRevenueAsTwoDecimalStringWithDollarSign() + "\n");
+								recordBuilder.append(currentNode.getObject().getRevenueAsTwoDecimalStringWithDollarSign());
 								
 								logWriter.append(recordBuilder.toString());
 							}
@@ -296,7 +298,7 @@ public class Main
 								recordBuilder.append(currentNode.getObject().getHighScore() + ", ");
 								recordBuilder.append(currentNode.getObject().getInitials() + ", ");
 								recordBuilder.append(currentNode.getObject().getPlays() + ", ");
-								recordBuilder.append(currentNode.getObject().getRevenueAsTwoDecimalStringWithDollarSign() + "\n");
+								recordBuilder.append(currentNode.getObject().getRevenueAsTwoDecimalStringWithDollarSign());
 								
 								logWriter.append(recordBuilder.toString());
 							}
@@ -315,6 +317,22 @@ public class Main
 		} //batch file processing end
 			
 		
+		ArrayList<Node<Payload>> breadthOrderList = databaseTree.getAsBreadthFirstList();		
+		//write each item as a single-line entry to the log file
+		for(Node<Payload> currentNode : breadthOrderList)
+		{
+			StringBuilder recordBuilder = new StringBuilder();
+			
+			recordBuilder.append(currentNode.getObject().getName() + ", ");
+			recordBuilder.append(currentNode.getObject().getHighScore() + ", ");
+			recordBuilder.append(currentNode.getObject().getInitials() + ", ");
+			recordBuilder.append(currentNode.getObject().getPlays() + ", ");
+			recordBuilder.append(currentNode.getObject().getRevenueAsTwoDecimalStringWithDollarSign());
+			
+			treeWriter.append(recordBuilder.toString());
+		}
+		
+		treeWriter.append("\n\n");
 		
 		
 		
@@ -327,7 +345,6 @@ public class Main
 	} // main end
 
 	////////////////////////////////////////////////////////////////////////////////////////////
-	
 	
 	
 }

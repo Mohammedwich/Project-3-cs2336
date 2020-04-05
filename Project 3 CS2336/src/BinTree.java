@@ -3,6 +3,8 @@
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 
 public class BinTree<T extends Comparable<T>>
@@ -296,6 +298,37 @@ public class BinTree<T extends Comparable<T>>
 		return result.toString();
 	}
 	
-	
+	public ArrayList<Node<T>> getAsBreadthFirstList()
+	{
+		if(root == null)
+		{
+			return null;
+		}
+		
+		ArrayList<Node<T>> result = new ArrayList<Node<T>>();
+		
+		Queue<Node<T>> theQueue = new LinkedList<>();
+		
+		theQueue.add(root);
+		
+		while(theQueue.isEmpty() == false)
+		{
+			Node<T> theNode = theQueue.remove();
+			
+			result.add(theNode);
+			
+			if(theNode.getLeft() != null)
+			{
+				theQueue.add(theNode.getLeft());
+			}
+			if(theNode.getRight() != null)
+			{
+				theQueue.add(theNode.getRight());
+			}
+		}
+		
+		return result;
+		
+	}
 	
 }
