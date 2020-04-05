@@ -128,7 +128,7 @@ public class Main
 					
 					//log command to log file
 					logWriter.append("RECORD ADDED\n");
-					logWriter.append(thePayload.toString() + "\n\n");
+					logWriter.append(thePayload.toString() + "\n\n\n");
 					
 				} 
 				//Search record command
@@ -157,9 +157,13 @@ public class Main
 						logWriter.append(searchTerm + " NOT FOUND\n\n\n");
 					}
 					else
-					{
-						logWriter.append(searchTerm + " FOUND\n");
-						logWriter.append(thePayload.toStringWithoutName() + "\n\n");
+					{						
+						for(Node<Payload> currentNode : searchResultsList)
+						{
+							logWriter.append(searchTerm + " FOUND\n");
+							logWriter.append(currentNode.getObject().toStringWithoutName() + "\n\n");
+						}
+						logWriter.append("\n");
 					}
 					
 				}
@@ -231,7 +235,7 @@ public class Main
 					Node<Payload> nodeToDelete = databaseTree.findNode(keywordHolderNode, databaseTree.getRoot());
 					
 					logWriter.append("RECORD DELETED\n");
-					logWriter.append(nodeToDelete.toString() + "\n\n");
+					logWriter.append(nodeToDelete.toString() + "\n\n\n");
 					
 					databaseTree.delete(nodeToDelete, databaseTree.getRoot());
 				}
@@ -245,7 +249,7 @@ public class Main
 					{
 						if(ascOrDec.compareTo("asc") == 0)
 						{
-							databaseTree.getSorted(databaseTree.getRoot(), true, sortedList);
+							databaseTree.getSortedAsList(databaseTree.getRoot(), true, sortedList);
 							
 							logWriter.append("RECORDS SORTED ASCENDING\n");
 							
@@ -268,7 +272,7 @@ public class Main
 						}
 						else if(ascOrDec.compareTo("dec") == 0)
 						{
-							databaseTree.getSorted(databaseTree.getRoot(), false, sortedList);
+							databaseTree.getSortedAsList(databaseTree.getRoot(), false, sortedList);
 							
 							logWriter.append("RECORDS SORTED DESCENDING\n");
 

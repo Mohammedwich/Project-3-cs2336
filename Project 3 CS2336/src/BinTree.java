@@ -242,7 +242,7 @@ public class BinTree<T extends Comparable<T>>
 
 	}
 	
-	public void getSorted(Node<T> currentRoot, boolean byAscending, ArrayList<Node<T>> theList)
+	public void getSortedAsList(Node<T> currentRoot, boolean byAscending, ArrayList<Node<T>> theList)
 	{
 		Node<T> currentNode = currentRoot;
 		
@@ -253,9 +253,9 @@ public class BinTree<T extends Comparable<T>>
 				return;
 			}                  
 			
-			getSorted(currentNode.getLeft(), byAscending, theList); 
+			getSortedAsList(currentNode.getLeft(), byAscending, theList); 
 			theList.add(currentNode);   
-			getSorted(currentNode.getRight(), byAscending, theList); 
+			getSortedAsList(currentNode.getRight(), byAscending, theList); 
 		}
 		
 		if(byAscending == false)
@@ -265,9 +265,9 @@ public class BinTree<T extends Comparable<T>>
 				return;
 			}                  
 			
-			getSorted(currentNode.getRight(), byAscending, theList); 
+			getSortedAsList(currentNode.getRight(), byAscending, theList); 
 			theList.add(currentNode);                   
-			getSorted(currentNode.getLeft(), byAscending, theList); 
+			getSortedAsList(currentNode.getLeft(), byAscending, theList); 
 		}
 	}
 	
