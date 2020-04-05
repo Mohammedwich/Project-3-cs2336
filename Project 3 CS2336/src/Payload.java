@@ -54,6 +54,16 @@ public class Payload implements Comparable<Payload>
 		return plays;
 	}
 	
+	public double getRevenue()
+	{
+		return revenue;
+	}
+	
+	public String getRevenueAsTwoDecimalStringWithDollarSign()
+	{
+		String revenueString = String.format("Revenue: $%.2f\n", revenue);
+		return revenueString;
+	}
 	
 	public void setName(String theName)
 	{

@@ -239,24 +239,62 @@ public class Main
 				else if(command == 5)
 				{
 					String ascOrDec = lineReader.next();
+					ArrayList<Node<Payload>> sortedList = new ArrayList<Node<Payload>>(); //will be fed to getSorted()					
 					
-					if(ascOrDec.compareTo("asc") == 0)
+					if(databaseTree.getRoot() != null)
 					{
-						logWriter.append("RECORDS SORTED ASCENDING\n");
-						databaseTree.writeSorted(databaseTree.getRoot(), true, logWriter);
-						logWriter.append("\n\n");
+						if(ascOrDec.compareTo("asc") == 0)
+						{
+							databaseTree.getSorted(databaseTree.getRoot(), true, sortedList);
+							
+							logWriter.append("RECORDS SORTED ASCENDING\n");
+							
+							//write each item as a single-line entry to the log file
+							for(Node<Payload> currentNode : sortedList)
+							{
+								StringBuilder recordBuilder = new StringBuilder();
+								
+								recordBuilder.append(currentNode.getObject().getName() + ", ");
+								recordBuilder.append(currentNode.getObject().getHighScore() + ", ");
+								recordBuilder.append(currentNode.getObject().getInitials() + ", ");
+								recordBuilder.append(currentNode.getObject().getPlays() + ", ");
+								recordBuilder.append(currentNode.getObject().getRevenueAsTwoDecimalStringWithDollarSign() + "\n");
+								
+								logWriter.append(recordBuilder.toString());
+							}
+								
+							logWriter.append("\n\n");
+							
+						}
+						else if(ascOrDec.compareTo("dec") == 0)
+						{
+							databaseTree.getSorted(databaseTree.getRoot(), false, sortedList);
+							
+							logWriter.append("RECORDS SORTED DESCENDING\n");
+
+							//write each item as a single-line entry to the log file
+							for(Node<Payload> currentNode : sortedList)
+							{
+								StringBuilder recordBuilder = new StringBuilder();
+								
+								recordBuilder.append(currentNode.getObject().getName() + ", ");
+								recordBuilder.append(currentNode.getObject().getHighScore() + ", ");
+								recordBuilder.append(currentNode.getObject().getInitials() + ", ");
+								recordBuilder.append(currentNode.getObject().getPlays() + ", ");
+								recordBuilder.append(currentNode.getObject().getRevenueAsTwoDecimalStringWithDollarSign() + "\n");
+								
+								logWriter.append(recordBuilder.toString());
+							}
+							
+							logWriter.append("\n\n");
+						}
+						else
+						{
+							logWriter.append("Failed to write sorted\n\n");
+						}
 					}
-					else if(ascOrDec.compareTo("dec") == 0)
-					{
-						logWriter.append("RECORDS SORTED DESCENDING\n");
-						databaseTree.writeSorted(databaseTree.getRoot(), false, logWriter);
-						logWriter.append("\n\n");
-					}
-					else
-					{
-						logWriter.append("Failed to write sorted\n\n");
-					}
-				}
+					
+				} //sort command end
 				
 				lineReader.close();
 			}
