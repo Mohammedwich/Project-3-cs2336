@@ -134,7 +134,16 @@ public class Main
 				//Search record command
 				else if(command == 2)
 				{
-					String searchTerm = lineReader.next();
+					//Collect the multiple words of a name without parentheses
+					StringBuilder searchTermBuilder = new StringBuilder();
+					searchTermBuilder.append(lineReader.next()); //put in the first word
+					while(lineReader.hasNext()) //put in the following words with a space preceeding them
+					{
+						searchTermBuilder.append(" ");
+						searchTermBuilder.append(lineReader.next());
+					}
+					
+					String searchTerm = searchTermBuilder.toString();
 					ArrayList<Node<Payload>> searchResultsList = new ArrayList<Node<Payload>>();
 					
 					//Fill up the list with all partial matches
@@ -207,7 +216,46 @@ public class Main
 				// delete a record
 				else if(command == 4)
 				{
+					//Collect the multiple words of a name without parentheses
+					StringBuilder deleteTermBuilder = new StringBuilder();
+					deleteTermBuilder.append(lineReader.next()); //put in the first word
+					while(lineReader.hasNext()) //put in the following words with a space preceeding them
+					{
+						deleteTermBuilder.append(" ");
+						deleteTermBuilder.append(lineReader.next());
+					}
 					
+					String deleteTerm = deleteTermBuilder.toString();
+										
+					Node<Payload> keywordHolderNode = new Node<Payload>(new Payload(deleteTerm));
+					Node<Payload> nodeToDelete = databaseTree.findNode(keywordHolderNode, databaseTree.getRoot());
+					
+					logWriter.append("RECORD DELETED\n");
+					logWriter.append(nodeToDelete.toString() + "\n");
+					
+					databaseTree.delete(nodeToDelete, databaseTree.getRoot());
+				}
+				//sort record
+				else if(command == 5)
+				{
+					String ascOrDec = lineReader.next();
+					
+					if(ascOrDec.compareTo("asc") == 0)
+					{
+						logWriter.append("RECORDS SORTED ASCENDING\n");
+						databaseTree.writeSorted(databaseTree.getRoot(), true, logWriter);
+						logWriter.append("\n");
+					}
+					else if(ascOrDec.compareTo("dec") == 0)
+					{
+						logWriter.append("RECORDS SORTED DESCENDING\n");
+						databaseTree.writeSorted(databaseTree.getRoot(), false, logWriter);
+						logWriter.append("\n");
+					}
+					else
+					{
+						logWriter.append("Failed to write sorted\n\n");
+					}
 				}
 				
 				lineReader.close();
