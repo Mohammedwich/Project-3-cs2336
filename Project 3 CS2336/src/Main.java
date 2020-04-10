@@ -247,10 +247,18 @@ public class Main
 					Node<Payload> keywordHolderNode = new Node<Payload>(new Payload(deleteTerm));
 					Node<Payload> nodeToDelete = databaseTree.findNode(keywordHolderNode, databaseTree.getRoot());
 					
-					logWriter.append("RECORD DELETED\n");
-					logWriter.append(nodeToDelete.toString() + "\n\n\n");
+					if(nodeToDelete != null)
+					{
+						logWriter.append("RECORD DELETED\n");
+						logWriter.append(nodeToDelete.toString() + "\n\n\n");
+						
+						databaseTree.delete(nodeToDelete, databaseTree.getRoot());
+					}
+					else
+					{
+						logWriter.append(deleteTerm + " NOT FOUND\n\n\n");
+					}
 					
-					databaseTree.delete(nodeToDelete, databaseTree.getRoot());
 				}
 				//sort record
 				else if(command == 5)
