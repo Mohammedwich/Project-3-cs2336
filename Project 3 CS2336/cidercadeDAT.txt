@@ -1,9 +1,0 @@
-name1, 111, initials1, 1, Revenue: $0.25
-Centipede, 5550000, DKV, 50, Revenue: $12.50
-name2, 222, initials2, 2, Revenue: $0.50
-Mousetrap, 895230, WJS, 12, Revenue: $3.00
-name3, 333, initials3, 3, Revenue: $0.75
-Defender, 750245000, LEH, 100, Revenue: $25.00
-Frogger, 93022440, NRI, 7250, Revenue: $1812.50
-
-

@@ -61,7 +61,7 @@ public class Payload implements Comparable<Payload>
 	
 	public String getRevenueAsTwoDecimalStringWithDollarSign()
 	{
-		String revenueString = String.format("Revenue: $%.2f\n", revenue);
+		String revenueString = String.format("$%.2f\n", revenue);
 		return revenueString;
 	}
 	
@@ -105,7 +105,7 @@ public class Payload implements Comparable<Payload>
 		result.append("Initials: " + initials + "\n");
 		result.append("Plays: " + plays + "\n");
 		//formatting the revenue string before appending it
-		String revenueString = String.format("$%.2f", revenue);
+		String revenueString = String.format("Revenue: $%.2f", revenue);
 		result.append(revenueString);
 		
 		return result.toString();

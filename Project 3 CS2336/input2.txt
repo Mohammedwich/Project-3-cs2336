@@ -1,0 +1,7 @@
+name1, 111, initials1, 1, $0.25
+Centipede, 5550000, DKV, 50, $12.50
+name2, 222, initials2, 2, $0.50
+Mousetrap, 895230, WJS, 12, $3.00
+name3, 333, initials3, 3, $0.75
+Defender, 750245000, LEH, 100, $25.00
+Frogger, 93022440, NRI, 7250, $1812.50

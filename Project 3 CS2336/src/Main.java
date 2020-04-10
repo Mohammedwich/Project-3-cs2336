@@ -41,11 +41,11 @@ public class Main
 		}
 		
 		//create output file that will hold the displayed tree
-		File outputDatFile = new File("cidercade.dat");
+		File outputDatFile = new File("cidercadeDAT.TXT");
 		outputDatFile.createNewFile();
 				
 		//create output file that will hold batch file commands' output
-		File outputLogFile = new File("cidercade.log");
+		File outputLogFile = new File("cidercadeLOG.TXT");
 		outputLogFile.createNewFile();
 		
 		
@@ -167,7 +167,7 @@ public class Main
 					{						
 						for(Node<Payload> currentNode : searchResultsList)
 						{
-							logWriter.append(searchTerm + " FOUND\n");
+							logWriter.append(currentNode.getObject().getName() + " FOUND\n");
 							logWriter.append(currentNode.getObject().toStringWithoutName() + "\n");
 						}
 						logWriter.append("\n");
@@ -227,7 +227,7 @@ public class Main
 					//log command to log file
 					logWriter.append(name + " UPDATED\n");
 					logWriter.append("UPDATE TO "+ fieldDescription + " - " + "VALUE " + newValueString + "\n");
-					logWriter.append(changingNode.toString() + "\n\n");
+					logWriter.append(changingNode.getObject().toStringWithoutName() + "\n\n");
 					
 				} //end of edit command
 				// delete a record
