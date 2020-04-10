@@ -109,7 +109,7 @@ public class Main
 				if(command == 1)
 				{
 					//name in quotations so we want to pick the name out
-					Pattern pattern = Pattern.compile("[a-zA-Z]");
+					Pattern pattern = Pattern.compile("[0-9a-zA-Z]");
 					lineReader.useDelimiter(pattern);
 					lineReader.next(); // ditch the space and opening quotation mark
 					lineReader.useDelimiter("\" ");
@@ -177,7 +177,7 @@ public class Main
 				else if(command == 3) //Edit an entry
 				{
 					//name in quotations so we want to pick the name out
-					Pattern pattern = Pattern.compile("[a-zA-Z]");
+					Pattern pattern = Pattern.compile("[0-9a-zA-Z]");
 					lineReader.useDelimiter(pattern);
 					lineReader.next(); // ditch the space and opening quotation mark
 					lineReader.useDelimiter("\" ");
