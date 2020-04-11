@@ -41,11 +41,11 @@ public class Main
 		}
 		
 		//create output file that will hold the displayed tree
-		File outputDatFile = new File("cidercadeDAT.TXT");
+		File outputDatFile = new File("cidercade.dat");
 		outputDatFile.createNewFile();
 				
 		//create output file that will hold batch file commands' output
-		File outputLogFile = new File("cidercadeLOG.TXT");
+		File outputLogFile = new File("cidercade.log");
 		outputLogFile.createNewFile();
 		
 		
@@ -65,7 +65,6 @@ public class Main
 		while(databaseReader.hasNextLine())
 		{
 			String currentLine = databaseReader.nextLine();
-			//TODO: use regex to skip invalid lines here if needed
 			
 			Scanner lineReader = new Scanner(currentLine);
 			lineReader.useDelimiter(", "); // terms separated by comma and space
@@ -97,7 +96,6 @@ public class Main
 		while(batchReader.hasNextLine())
 		{
 			String currentLine = batchReader.nextLine();
-			//TODO: confirm valid line if needed
 			Scanner lineReader = new Scanner(currentLine);
 			
 			while(lineReader.hasNext())

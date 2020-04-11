@@ -156,8 +156,8 @@ public class BinTree<T extends Comparable<T>>
         	return rightChildOfDeletedNode;
         }
     }
-	
-	//TODO: remove the System prints when deleting
+
+
 	public Node<T> delete(Node<T> theNode, Node<T> root)
 	{
 		if(root == null)
@@ -178,21 +178,18 @@ public class BinTree<T extends Comparable<T>>
             // node with no children
             if(root.getLeft() == null && root.getRight() == null) 
             {
-                //System.out.println("deleting "+ theNode.toString());
                 root = null;
                 return root;
             } 
             //if node has only a right child
             else if(root.getLeft() == null) 
             {
-               // System.out.println("deleting "+ theNode.toString());
                 root = root.getRight();
                 return root;
             } 
             //if node has only a left child
             else if(root.getRight() == null) 
             {
-            	//System.out.println("deleting "+ theNode.toString());
                 root = root.getLeft();
                 return root;
             } 
@@ -205,7 +202,6 @@ public class BinTree<T extends Comparable<T>>
                 //Call delete() on the successor since we moved it into the current node. 
                 //Its right child will be moved into its place as programmed above.
                 root.setRight(delete(theSuccessor, root.getRight()));
-               // System.out.println("deleting "+theNode.toString());
             }
         }
  
